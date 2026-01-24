@@ -1,0 +1,116 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Buku;
+use App\Models\Mentor;
+use App\Models\Siswa;
+
+use Illuminate\Http\Request;
+
+class SiswaController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $data = Siswa::with('mentor')->when($request->search, function ($query, $search) {
+            $query->where('nama', 'like', "%{$search}%")->orWhere('jurusan', 'like', "%{$search}%");
+        })->orderBy('nilai', 'desc')->paginate(10);
+
+        // $data = Siswa::with('mentor')->orderBy('nilai', 'desc')->paginate(10);
+        return view('siswa.index', ['data' => $data]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+        $mentors = Mentor::all();
+        return view('siswa.create', ['mentors' => $mentors]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+
+        $validated = $request->validate([
+            'nama' => 'required|string|min:3',
+            'tanggal_lahir' => 'required|date',
+            'jurusan' => 'required|string|min:3',
+            'nilai' => 'required|numeric|min:70|max:100',
+            'mentor_id' => 'exists:mentors,id',
+        ]);
+        
+        Siswa::create([
+            'nama' => $validated['nama'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'jurusan' => $validated['jurusan'],
+            'nilai' => $validated['nilai'],
+            'mentor_id' => $validated['mentor_id'],
+        ]);
+        return redirect()->route('siswa.index')->with('success', 'Data Siswa Berhasil Dibuat');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Siswa $siswa)
+    {
+        //
+        // $siswa = Siswa::with('mentor')->findOrFail($id);
+        $siswa->load('mentor');
+        $buku = Buku::all();
+        return view('siswa.show', ['siswa' => $siswa, 'buku' => $buku]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Siswa $siswa)
+    {
+        //
+        $siswa->load('mentor');
+
+        $mentors = Mentor::all();
+        
+        return view('siswa.edit', [
+            'siswa' => $siswa,
+            'mentors' => $mentors
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Siswa $siswa)
+    {
+        //
+        $validated = $request->validate([
+            'nama' => 'required|string|min:3',
+            'tanggal_lahir' => 'required|date',
+            'jurusan' => 'required|string|min:3',
+            'nilai' => 'required|numeric|min:70|max:100',
+            'mentor_id' => 'required|exists:mentors,id',
+        ]);
+        $siswa->update($validated);
+
+        return redirect()->route('siswa.index')->with('success', 'Data Siswa Berhasil Diupdate');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Siswa $siswa)
+    {
+        //
+        $siswa->delete();
+
+        return redirect()->route('siswa.index')->with('success', 'Data Siswa Berhasil Dihapus');
+    }
+}
