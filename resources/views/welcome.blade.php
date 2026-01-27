@@ -11,21 +11,21 @@
                     <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
                         <div class="sm:text-center lg:text-left">
                             <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                                <span class="block xl:inline">Selamat Datang di</span>
+                                <span class="block xl:inline">Welcome to</span>
                                 <span class="block text-purple-600 xl:inline">KazFolyo</span>
                             </h1>
                             <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                                Sistem Manajemen Perilisan Buku yang modern dan efisien. Kelola data buku dan anggota dengan mudah dalam satu platform terpadu. Tingkatkan produktivitas perpustakaan Anda hari ini.
+                                A modern and efficient Book Release Management System. Easily manage book and member data in one integrated platform. Increase your library's productivity today.
                             </p>
                             <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                                 <div class="rounded-md shadow">
                                     <a href="{{ route('siswa.index') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 md:py-4 md:text-lg md:px-10 transition duration-150 ease-in-out">
-                                        Kelola Anggota
+                                        Manage members
                                     </a>
                                 </div>
                                 <div class="mt-3 sm:mt-0 sm:ml-3">
                                     <a href="{{ route('buku.index') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-purple-700 bg-purple-100 hover:bg-purple-200 md:py-4 md:text-lg md:px-10 transition duration-150 ease-in-out">
-                                        Kelola Buku
+                                        Manage data
                                     </a>
                                 </div>
                             </div>
@@ -41,12 +41,12 @@
         <div class="py-12 bg-gray-50">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="lg:text-center mb-10">
-                    <h2 class="text-base text-purple-600 font-semibold tracking-wide uppercase">Ringkasan Data</h2>
+                    <h2 class="text-base text-purple-600 font-semibold tracking-wide uppercase">Data Summary</h2>
                     <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                        Statistik Perpustakaan
+                        Library Statistics
                     </p>
                     <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                        Pantau pertumbuhan koleksi dan anggota perpustakaan Anda secara real-time.
+                        Monitor the growth of your library's collection and members in real-time.
                     </p>
                 </div>
 
@@ -59,13 +59,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                     </svg>
                                 </div>
-                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Total Koleksi Buku</p>
+                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Total Book Collection</p>
                             </dt>
                             <dd class="mt-2 ml-16 text-4xl font-extrabold text-purple-600">
                                 1,250
                             </dd>
                             <dd class="mt-2 ml-16 text-base text-gray-500">
-                                Judul buku tersedia
+                                Book titles available
                             </dd>
                         </div>
 
@@ -76,13 +76,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                     </svg>
                                 </div>
-                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Anggota Terdaftar</p>
+                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Registered Member</p>
                             </dt>
                             <dd class="mt-2 ml-16 text-4xl font-extrabold text-purple-600">
                                 450
                             </dd>
                             <dd class="mt-2 ml-16 text-base text-gray-500">
-                                Siswa aktif
+                                Active students
                             </dd>
                         </div>
 
@@ -93,13 +93,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                     </svg>
                                 </div>
-                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Aktivitas Bulan Ini</p>
+                                <p class="ml-16 text-lg leading-6 font-medium text-gray-900">This Month's Activities</p>
                             </dt>
                             <dd class="mt-2 ml-16 text-4xl font-extrabold text-purple-600">
                                 320
                             </dd>
                             <dd class="mt-2 ml-16 text-base text-gray-500">
-                                Transaksi peminjaman
+                                Lending transactions
                             </dd>
                         </div>
                     </dl>

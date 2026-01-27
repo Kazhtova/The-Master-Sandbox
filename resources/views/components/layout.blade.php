@@ -65,23 +65,23 @@
                     
                     <li class="relative group">
                         <button class="{{ request()->routeIs('siswa.*') ? 'text-purple-600' : 'text-gray-500 hover:text-purple-600' }} flex items-center gap-1 transition">
-                            Siswa
+                            Student
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                         <div class="absolute top-full left-0 mt-2 w-40 bg-white border border-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
-                            <a href="{{ route('siswa.index') }}" class="block px-4 py-2 text-gray-600 hover:bg-purple-50 hover:text-purple-600">Daftar Siswa</a>
-                            <a href="{{ route('siswa.create') }}" class="block px-4 py-2 text-gray-600 hover:bg-purple-50 hover:text-purple-600">Tambah Siswa</a>
+                            <a href="{{ route('siswa.index') }}" class="block px-4 py-2 text-gray-600 hover:bg-purple-50 hover:text-purple-600">List Of Students</a>
+                            <a href="{{ route('siswa.create') }}" class="block px-4 py-2 text-gray-600 hover:bg-purple-50 hover:text-purple-600">Add Student</a>
                         </div>
                     </li>
 
                     <li class="relative group">
                         <button class="{{ request()->routeIs('buku.*') ? 'text-purple-600' : 'text-gray-500 hover:text-purple-600' }} flex items-center gap-1 transition">
-                            Buku
+                            Book
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                         <div class="absolute top-full left-0 mt-2 w-40 bg-white border border-gray-100 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
-                            <a href="{{ route('buku.index') }}" class="block px-4 py-2 text-gray-600 hover:bg-purple-50 hover:text-purple-600">Daftar Buku</a>
-                            <a href="{{ route('buku.create') }}" class="block px-4 py-2 text-gray-600 hover:bg-purple-50 hover:text-purple-600">Tambah Buku</a>
+                            <a href="{{ route('buku.index') }}" class="block px-4 py-2 text-gray-600 hover:bg-purple-50 hover:text-purple-600">List Of Book</a>
+                            <a href="{{ route('buku.create') }}" class="block px-4 py-2 text-gray-600 hover:bg-purple-50 hover:text-purple-600">Add Books</a>
                         </div>
                     </li>
 
