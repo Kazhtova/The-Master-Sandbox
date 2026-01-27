@@ -1,21 +1,60 @@
 <x-layout>
-    <div class="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
-  <div class="flex items-start gap-4">
-    <a href="#" class="shrink-0 group block">
-    <div class="size-14 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xl uppercase transition group-hover:ring-2 group-hover:ring-indigo-500">
-        {{ substr(Auth::user()->nama, 0, 1) }}
-    </div>
-</a>
+  <div class="block rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6 min-h-60">
+    <div class="flex items-start gap-4">
+      
+      <form 
+        action="{{ route('profile.update') }}" 
+        method="POST" 
+        enctype="multipart/form-data" 
+        class="shrink-0 group block relative"
+      >
+        @csrf
+        @method('PATCH') 
 
-    <div>
-      <h3 class="font-semibold text-2xl text-gray-900">
-        {{ Auth::user()->nama }}
-      </h3>
-      <span class="mt-2 inline-block rounded bg-indigo-100 px-2.5 py-0.5 text-sm font-medium text-indigo-800">
-        Student
-      </span>
+        <input type="hidden" name="nama" value="{{ Auth::user()->nama }}">
+        <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+
+        <label for="avatar_upload" class="cursor-pointer block relative">
+            
+            <div class="absolute inset-0 flex items-center justify-center rounded-full bg-black bg-opacity-50 opacity-0 transition group-hover:opacity-100 z-10">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
+                </svg>
+            </div>
+
+            @if(Auth::user()->avatar_url)
+                <img 
+                    class="size-14 rounded-full object-cover transition group-hover:ring-2 group-hover:ring-indigo-500" 
+                    src="{{ Auth::user()->avatar_url }}" 
+                    alt="Avatar user" 
+                />
+            @else
+                <div class="size-14 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-xl uppercase transition group-hover:ring-2 group-hover:ring-indigo-500">
+                    {{ substr(Auth::user()->nama, 0, 1) }}
+                </div>
+            @endif
+        </label>
+
+        <input 
+            type="file" 
+            name="avatar" 
+            id="avatar_upload" 
+            class="hidden" 
+            accept="image/*"
+            onchange="this.form.submit()" 
+        >
+      </form>
+
+      <div>
+        <h3 class="font-semibold text-2xl text-gray-900">
+          {{ Auth::user()->nama }}
+        </h3>
+        <span class="mt-2 inline-block rounded bg-indigo-100 px-2.5 py-0.5 text-sm font-medium text-indigo-800">
+          Student
+        </span>
+      </div>
     </div>
-</div>
 
   <dl class="mt-6 flex gap-4 sm:gap-6 border-t border-gray-100 pt-4">
     <div class="flex items-center gap-2">
