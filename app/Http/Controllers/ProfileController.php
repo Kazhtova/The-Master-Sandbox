@@ -13,7 +13,6 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        //
         $profile = Auth::user();
 
         return view('profile.index', ['users' => $profile]);
@@ -21,17 +20,14 @@ class ProfileController extends Controller
 
     public function create()
     {
-        //
     }
 
     public function store(Request $request)
     {
-        //
     }
 
     public function show(string $id)
     {
-        //
     }
 
     public function edit(User $profile)
@@ -43,7 +39,6 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        //
         /** @var \App\Models\User $profile */
         $profile = Auth::user();
 
@@ -80,47 +75,27 @@ class ProfileController extends Controller
     public function destroy(string $id)
     {
     }
-    /**
-     * Fungsi Helper Private untuk menangani upload ke Supabase
-     */
     private function uploadToSupabase($file, $userId)
     {
+        
+        $fileName = time() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
+        $path = "{$userId}/{$fileName}";
+        $cfg = config('services.supabase'); 
+
         try {
-            $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-            $path = $userId . '/' . $fileName;
-
-            // --- PERBAIKAN: GUNAKAN CONFIG, JANGAN ENV ---
-            // Pastikan Anda sudah setting config/services.php sesuai panduan sebelumnya
-            
-            $supabaseUrl = config('services.supabase.url');
-            $supabaseKey = config('services.supabase.key');
-            $supabaseBucket = config('services.supabase.bucket');
-
-            // Cek apakah config terbaca (Debugging)
-            if (!$supabaseUrl || !$supabaseKey || !$supabaseBucket) {
-                Log::error('Supabase Config Missing. Cek config/services.php dan .env');
-                return null;
-            }
-
             /** @var \Illuminate\Http\Client\Response $response */
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $supabaseKey,
-                'apikey'        => $supabaseKey,
-                'Content-Type'  => $file->getMimeType(),
-            ])->withBody(
-                file_get_contents($file->getRealPath()), $file->getMimeType()
-            )->post($supabaseUrl . '/storage/v1/object/' . $supabaseBucket . '/' . $path);
+            $response = Http::withToken($cfg['key'])
+                ->withHeaders(['apikey' => $cfg['key']])
+                ->withBody(file_get_contents($file), $file->getMimeType())
+                ->post("{$cfg['url']}/storage/v1/object/{$cfg['bucket']}/{$path}");
 
-            if ($response->successful()) {
-                return $supabaseUrl . '/storage/v1/object/public/' . $supabaseBucket . '/' . $path;
+            if (! $response->successful()) {
+                throw new \Exception("Gagal Upload ke Supabase: " . $response->body());
             }
 
-            // Jika gagal, catat error spesifik dari Supabase
-            Log::error('Supabase API Error: ' . $response->body());
-            return null;
-
+            return "{$cfg['url']}/storage/v1/object/public/{$cfg['bucket']}/{$path}";
         } catch (\Exception $e) {
-            Log::error('System Error: ' . $e->getMessage());
+            Log::error("Supabase Upload Error: " . $e->getMessage());
             return null;
         }
     }
