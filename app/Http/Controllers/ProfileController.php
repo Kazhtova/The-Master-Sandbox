@@ -85,34 +85,43 @@ class ProfileController extends Controller
      */
     private function uploadToSupabase($file, $userId)
     {
-        // 1. Cek Config
-        $url = config('services.supabase.url');
-        $key = config('services.supabase.key');
-        $bucket = config('services.supabase.bucket');
+        try {
+            $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $path = $userId . '/' . $fileName;
 
-        // 2. Kirim ke Supabase
-        $fileName = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
-        $path = $userId . '/' . $fileName;
+            // --- PERBAIKAN: GUNAKAN CONFIG, JANGAN ENV ---
+            // Pastikan Anda sudah setting config/services.php sesuai panduan sebelumnya
+            
+            $supabaseUrl = config('services.supabase.url');
+            $supabaseKey = config('services.supabase.key');
+            $supabaseBucket = config('services.supabase.bucket');
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $key,
-            'apikey'        => $key,
-            'Content-Type'  => $file->getMimeType(),
-        ])->withBody(
-            file_get_contents($file->getRealPath()), $file->getMimeType()
-        )->post($url . '/storage/v1/object/' . $bucket . '/' . $path);
+            // Cek apakah config terbaca (Debugging)
+            if (!$supabaseUrl || !$supabaseKey || !$supabaseBucket) {
+                Log::error('Supabase Config Missing. Cek config/services.php dan .env');
+                return null;
+            }
 
-        // 3. JEBAKAN ERROR (Wajib ada untuk diagnosa)
-        if (!$response->successful()) {
-            dd([
-                'STATUS' => 'GAGAL UPLOAD KE SUPABASE',
-                'KODE_HTTP' => $response->status(),
-                'PESAN_ERROR_ASLI' => $response->json(), // <--- Ini kuncinya
-                'URL_TUJUAN' => $url . '/storage/v1/object/' . $bucket . '/' . $path,
-                'BUCKET_CONFIG' => $bucket
-            ]);
+            /** @var \Illuminate\Http\Client\Response $response */
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $supabaseKey,
+                'apikey'        => $supabaseKey,
+                'Content-Type'  => $file->getMimeType(),
+            ])->withBody(
+                file_get_contents($file->getRealPath()), $file->getMimeType()
+            )->post($supabaseUrl . '/storage/v1/object/' . $supabaseBucket . '/' . $path);
+
+            if ($response->successful()) {
+                return $supabaseUrl . '/storage/v1/object/public/' . $supabaseBucket . '/' . $path;
+            }
+
+            // Jika gagal, catat error spesifik dari Supabase
+            Log::error('Supabase API Error: ' . $response->body());
+            return null;
+
+        } catch (\Exception $e) {
+            Log::error('System Error: ' . $e->getMessage());
+            return null;
         }
-
-        return $url . '/storage/v1/object/public/' . $bucket . '/' . $path;
     }
 }
