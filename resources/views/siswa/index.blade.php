@@ -37,15 +37,16 @@
                         <tr>
                             <th scope="col" class="px-6 py-4 font-semibold">Student Name</th>
                             <th scope="col" class="px-6 py-4 font-semibold">Date of Birth</th>
-                            <th scope="col" class="px-6 py-4 font-semibold">Major</th>
-                            <th scope="col" class="px-6 py-4 font-semibold text-center">Grade</th>
-                            <th scope="col" class="px-6 py-4 font-semibold text-right">Actions</th>
+                            <th scope="col" class="px-6 py-4 font-semibold text-center">Major</th>
+                            <th scope="col" class="px-6 py-4 font-semibold text-center w-32">Grade</th>
+                            <th scope="col" class="px-6 py-4 font-semibold text-center w-32">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @forelse ( $data as $item )
                             <tr class="bg-white hover:bg-purple-50/50 transition-colors duration-200">
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                
+                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap align-middle">
                                     <div class="flex items-center gap-3">
                                         <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold text-xs">
                                             {{ substr($item->nama, 0, 1) }}
@@ -54,27 +55,33 @@
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 align-middle">
                                     {{ $item->tanggal_lahir }}
                                 </td>
 
-                                <td class="px-6 py-4">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                        {{ $item->jurusan }}
-                                    </span>
+                                <td class="px-6 py-4 align-middle text-center">
+                                    <div class="flex justify-center">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            {{ $item->jurusan }}
+                                        </span>
+                                    </div>
                                 </td>
 
-                                <td class="px-6 py-4 text-center">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
-                                        {{ $item->nilai >= 75 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                        {{ $item->nilai }}
-                                    </span>
+                                <td class="px-6 py-4 text-center align-middle">
+                                    <div class="flex justify-center">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                            {{ $item->nilai >= 75 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                            {{ $item->nilai }}
+                                        </span>
+                                    </div>
                                 </td>
 
-                                <td class="px-6 py-4 text-right">
-                                    <a href="{{ route('siswa.show', $item->id) }}" class="font-medium text-purple-600 hover:text-purple-800 hover:underline transition-colors">
-                                        View Details
-                                    </a>
+                                <td class="px-6 py-4 text-center align-middle">
+                                    <div class="flex justify-center">
+                                        <a href="{{ route('siswa.show', $item->id) }}" class="font-medium text-purple-600 hover:text-purple-800 hover:underline transition-colors">
+                                            View Details
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
