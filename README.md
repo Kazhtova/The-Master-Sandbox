@@ -2,7 +2,6 @@
 ![Laravel](https://img.shields.io/badge/laravel-v12.0-red)
 ![PHP](https://img.shields.io/badge/php-^8.2-blue)
 
----
 
 ## About The Project (Tentang Project)
 
