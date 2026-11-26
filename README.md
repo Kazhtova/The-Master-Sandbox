@@ -2,6 +2,8 @@
 ![Laravel](https://img.shields.io/badge/laravel-v12.0-red)
 ![PHP](https://img.shields.io/badge/php-^8.2-blue)
 
+---
+
 ## About The Project (Tentang Project)
 
 [Website ini dibuat untuk mengelola data siswa dengan data dosennya dan dapat memasukkan buku apa saja yang ditulis oleh siswa ataupun dosen.]
